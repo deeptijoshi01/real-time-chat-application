@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Real-Time Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="app-logo">💬</span>
+        <span class="app-title">Realtime Chat</span>
+      </div>
+
+      <div class="topbar-right">
+        <!-- Theme toggle -->
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+          <span class="toggle-icon sun">☀</span>
+          <span class="toggle-icon moon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- LOGIN SCREEN -->
+    <div id="loginScreen" class="login-wrapper">
+      <div class="login-card glass">
+        <h2>Welcome 👋</h2>
+        <p class="login-subtitle">Join a room and start chatting in seconds.</p>
+
+        <label class="field-label" for="usernameInput">Username</label>
+        <input id="usernameInput" placeholder="Enter your name" />
+
+        <label class="field-label" for="roomInput">Room name</label>
+        <input id="roomInput" placeholder="general" />
+
+        <button id="joinBtn">Join Chat</button>
+        <p id="loginError"></p>
+      </div>
+    </div>
+
+    <!-- CHAT SCREEN -->
+    <div id="chatScreen" class="chat-layout hidden">
+      <!-- Sidebar -->
+      <aside class="sidebar glass">
+        <div class="sidebar-section">
+          <h3>Rooms</h3>
+          <ul id="roomList"></ul>
+        </div>
+
+        <div class="sidebar-section">
+          <h3>Users</h3>
+          <ul id="userList"></ul>
+        </div>
+      </aside>
+
+      <!-- Chat area -->
+      <main class="chat-area">
+        <div id="messages" class="messages"></div>
+        <p id="typing" class="typing"></p>
+
+        <div class="input-area">
+          <input id="messageInput" placeholder="Type a message" />
+          <button id="sendBtn">Send</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- Theme toggle script -->
+  <script>
+    const rootBody = document.body;
+    const themeToggle = document.getElementById("themeToggle");
+
+    function setTheme(theme) {
+      if (theme === "light") {
+        rootBody.classList.add("light");
+      } else {
+        rootBody.classList.remove("light");
+      }
+      localStorage.setItem("chat-theme", theme);
+    }
+
+    const storedTheme = localStorage.getItem("chat-theme");
+    setTheme(storedTheme || "dark"); // default dark
+
+    themeToggle.addEventListener("click", () => {
+      const isLight = rootBody.classList.contains("light");
+      setTheme(isLight ? "dark" : "light");
+    });
+  </script>
+</body>
+</html>
